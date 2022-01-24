@@ -1,0 +1,8 @@
+DELETE FROM payments WHERE checkNumber="HR141523";
+DELETE FROM customers WHERE customerNumber=100;
+
+for setting up maria db
+
+docker run -p 3306:3306 --name db --network maria_db -v data:/data -e MYSQL_DATABASE=classicmodels -e MYSQL_ROOT_PASSWORD=root -d mariadb
+ 1148  mariadb -h 127.0.0.1 -u root -p
+ 1149  docker network create maria_db

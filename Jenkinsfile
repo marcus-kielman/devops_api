@@ -15,17 +15,12 @@ pipeline {
                     docker run -p 3306:3306 --network api_maria --name maria_db -v data:/data -e MYSQL_DATABASE=classicmodels -e MYSQL_ROOT_PASSWORD=root -d marcuskielman/mariadb
                     docker run -p 8081:8081 --network api_maria --name devops_api marcuskielman/devops_api &
                     '''
-
-                sh "echo 'Build API Docker Image and Create Network'"
-                sh "echo 'Run API and MariaDB Container'"
-                sh "echo 'Load SQL Database to MariaDB'"
-                sh "echo 'Run pipenv shell and install requirements'"
             }
         }
         stage('Testing API Docker Image and Network Connection'){
             steps{
                 sh "echo 'python api_test.py and check if passed or failed'"
-                sh "curl http://172.18.0.3:8081"
+                sh "curl http://172.18.0.3:8080 || docker container stop devops_api maria_db && docker container rm devops_api maria_db"
                 sh 'python api_test.py || docker container stop devops_api maria_db && docker container rm devops_api maria_db '
                 sh 'docker container stop devops_api maria_db'
                 sh 'docker container rm devops_api maria_db'

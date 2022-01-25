@@ -6,7 +6,7 @@ pipeline {
                 echo 'Pulling Git Stage Branch'
                 sh '''git pull origin stage;
                       docker build -t marcuskielman/devops_api .
-                      docker images ls
+                      docker images ls -a
                       ansible-playbook -u jenkins env-playbook.yml -v
                 '''
 

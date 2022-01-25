@@ -6,6 +6,11 @@
     repo_name: devops_api
   tasks:
     - name: Build Docker Image
-      command: ls
+      docker_image:
+        build:
+          path: ./
+        name: marcuskielman/devops_api
+        tag: v0.0.1
+        source: build
 
       

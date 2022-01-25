@@ -4,12 +4,12 @@ pipeline {
         stage('Setting Up Testing Environment') {
             steps{
                 sh '''
-                    echo "Pulling Git Stage Branch";
-                    git pull origin stage;
-                    pip install docker; 
-                    ansible-playbook -u jenkins env-playbook.yml -v;
-                    docker images ls -a;
-                    docker run -p 8081:8081 --network api_maria --name devops_api marcuskielman/devops_api &;
+                    echo "Pulling Git Stage Branch"
+                    git pull origin stage
+                    pip install docker
+                    ansible-playbook -u jenkins env-playbook.yml -v
+                    docker images ls -a
+                    docker run -p 8081:8081 --network api_maria --name devops_api marcuskielman/devops_api &
                     
                     '''
 

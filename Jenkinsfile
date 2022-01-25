@@ -24,7 +24,7 @@ pipeline {
                 echo 'python api_test.py and check if passed or failed'
             }
         }
-        production('Push to Production and DockerHub'){
+        stage('Push to Production and DockerHub'){
             steps{
                 echo 'Stop Docker Containers'
             }

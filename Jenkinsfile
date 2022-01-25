@@ -9,6 +9,8 @@ pipeline {
                     pip install docker; 
                     ansible-playbook -u jenkins env-playbook.yml -v;
                     docker images ls -a;
+                    docker network create api_maria;
+                    docker run -p 8081:8081 --network api_maria marcuskielman/devops_api;
                     '''
 
                 sh "echo 'Build API Docker Image and Create Network'"

@@ -1,9 +1,11 @@
 ---
-- name: This is a hello-world example
+- name: API Environment Testing Setup
   hosts: localhost
   vars:
     username: marcus-kielman
     repo_name: devops_api
   tasks:
-    - command: ls
+    - name: Build Docker Image
+      command: ls
+
       

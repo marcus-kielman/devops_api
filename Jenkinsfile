@@ -7,35 +7,35 @@ pipeline {
                 sh 'git pull origin stage'
             }
             steps{
-                echo 'Build API Docker Image and Create Network'
+                sh "echo 'Build API Docker Image and Create Network'"
             }
             steps{
-                echo 'Run API and MariaDB Container'
+                sh "echo 'Run API and MariaDB Container'"
             }
             steps{
-                echo 'Load SQL Database to MariaDB'
+                sh "echo 'Load SQL Database to MariaDB'"
             }
             steps{
-                echo 'Run pipenv shell and install requirements'
+                sh "echo 'Run pipenv shell and install requirements'"
             }
         }
         stage('Testing API Docker Image and Network Connection'){
             steps{
-                echo 'python api_test.py and check if passed or failed'
+                sh "echo 'python api_test.py and check if passed or failed'"
             }
         }
         stage('Push to Production and DockerHub'){
             steps{
-                echo 'Stop Docker Containers'
+                sh "echo 'Stop Docker Containers'"
             }
             steps{
-                echo 'Merge Stage to Main and Push Main to GitHub'
+                sh "echo 'Merge Stage to Main and Push Main to GitHub'"
             }
             steps{
-                echo 'Merge Main to Develop and Push Develop to GitHub'
+                sh "echo 'Merge Main to Develop and Push Develop to GitHub'"
             }
             steps{
-                echo 'Push Docker Image API to DockerHub'
+                sh "echo 'Push Docker Image API to DockerHub'"
             }
         }
     }

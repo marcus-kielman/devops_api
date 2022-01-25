@@ -29,7 +29,7 @@ class CustomerSchema(Schema):
     addressLine2 = fields.Str()
     city = fields.Str()
     state = fields.Str()
-    postalCode = fields.Int()
+    postalCode = fields.Str()
     country = fields.Str()
     salesRepEmployeeNumber = fields.Int()
     creditLimit = fields.Number()

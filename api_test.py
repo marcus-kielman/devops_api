@@ -4,22 +4,22 @@ import mariadb
 
 class GetTestCases(unittest.TestCase):
     def test_get_database_tables(self):
-        r = requests.get('http://172.18.0.3:8080/get_database_table')
+        r = requests.get('http://172.18.0.2:8081/get_database_table')
         self.assertNotEqual(r.json(), "Database Inaccessible")
         self.assertEqual(r.status_code, 200)
 
     def test_get_payments(self):
-        r = requests.get('http://172.18.0.3:8080/get_database_table/payments')
+        r = requests.get('http://172.18.0.2:8081/get_database_table/payments')
         self.assertNotEqual(r.json(), "Database Inaccessible")
         self.assertEqual(r.status_code, 200)
 
     def test_get_customers(self):
-        r = requests.get('http://172.18.0.3:8080/get_database_table/customers')
+        r = requests.get('http://172.18.0.2:8081/get_database_table/customers')
         self.assertNotEqual(r.json(), "Database Inaccessible")
         self.assertEqual(r.status_code, 200)
 
     def test_get_offices(self):
-        r = requests.get('http://172.18.0.3:8080/get_database_table/offices')
+        r = requests.get('http://172.18.0.2:8081/get_database_table/offices')
         self.assertNotEqual(r.json(), "Database Inaccessible")
         self.assertEqual(r.status_code, 200)
 
@@ -41,7 +41,7 @@ class InPostTestCases(unittest.TestCase):
                 "salesRepEmployeeNumber": 1000,
                 "creditLimit": "26000.44"
         }
-        r = requests.post('http://172.18.0.3:8081/get_database_table/customers', json=data)
+        r = requests.post('http://172.18.0.2:8081/get_database_table/customers', json=data)
         self.assertEqual(r.status_code, 500)
 
         data = {
@@ -58,7 +58,7 @@ class InPostTestCases(unittest.TestCase):
                 "country": "US",
                 "creditLimit": "26000.44"
         }
-        r = requests.post('http://172.18.0.3:8081/get_database_table/customers', json=data)
+        r = requests.post('http://172.18.0.2:8081/get_database_table/customers', json=data)
         self.assertEqual(r.status_code, 500)
 
     def test_in_add_payment(self):
@@ -69,7 +69,7 @@ class InPostTestCases(unittest.TestCase):
                 "paymentDate": "2020-01-23",
                 "amount": 1234.56
         }
-        r = requests.post('http://172.18.0.3:8081/get_database_table/payments', json=data)
+        r = requests.post('http://172.18.0.2:8081/get_database_table/payments', json=data)
         self.assertEqual(r.status_code, 500)
 
         data = {
@@ -77,7 +77,7 @@ class InPostTestCases(unittest.TestCase):
                 "checkNumber": "HR141523",
                 "amount": 1234.56
         }
-        r = requests.post('http://172.18.0.3:8081/get_database_table/payments', json=data)
+        r = requests.post('http://172.18.0.2:8081/get_database_table/payments', json=data)
         self.assertEqual(r.status_code, 500)
 
 class PostTestCases(unittest.TestCase):
@@ -91,7 +91,7 @@ class PostTestCases(unittest.TestCase):
                     "paymentDate": "2020-01-23",
                     "amount": 1234.56
             }
-            r = requests.post('http://172.18.0.3:8081/get_database_table/payments', json=data)
+            r = requests.post('http://172.18.0.2:8081/get_database_table/payments', json=data)
             self.assertEqual(r.status_code, 204)
             cur.execute(
                 "DELETE FROM payments WHERE checkNumber='HR141523';"
@@ -116,7 +116,7 @@ class PostTestCases(unittest.TestCase):
                     "salesRepEmployeeNumber": 1002,
                     "creditLimit": "26000.44"
             }
-            r = requests.post('http://172.18.0.3:8081/get_database_table/customers', json=data)
+            r = requests.post('http://172.18.0.2:8081/get_database_table/customers', json=data)
             print(r.text)
             self.assertEqual(r.status_code, 204)
             cur.execute(

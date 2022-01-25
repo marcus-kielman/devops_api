@@ -3,8 +3,8 @@ pipeline {
     stages {
         stage('Setting Up Testing Environment') {
             steps{
-                sh "echo 'Pulling Git Stage Branch'"
                 sh '''
+                    echo "Pulling Git Stage Branch"
                     git pull origin stage;
                     pip install docker; 
                     ansible-playbook -u jenkins env-playbook.yml -v;

@@ -4,14 +4,15 @@ pipeline {
         stage('Setting Up Testing Environment') {
             steps{
                 echo 'Pulling Git Stage Branch'
-                sh '''
+                sh 
+                    '''
                     git pull origin stage;
                     pip install docker; 
                     ansible-playbook -u jenkins env-playbook.yml -v;
                     docker images ls -a;
                     docker run -p 8081:8081 --network api_maria --name devops_api marcuskielman/devops_api &;
                     docker run -p 3306:3306 --name maria_db --network api_maria -v data:/data -e MYSQL_DATABASE=classicmodels -e MYSQL_ROOT_PASSWORD=root -d mariadb;
-                    echo "source ./mysqlsampledatabase.sql";
+                    
                     '''
 
                 sh "echo 'Build API Docker Image and Create Network'"

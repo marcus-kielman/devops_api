@@ -4,7 +4,10 @@ pipeline {
         stage('Setting Up Testing Environment') {
             steps{
                 echo 'Pulling Git Stage Branch'
-                sh 'git pull origin stage'
+                sh '''git pull origin stage;
+                      ansible-playbook -u jenkins env-playbook.yml -v
+                '''
+
                 sh "echo 'Build API Docker Image and Create Network'"
                 sh "echo 'Run API and MariaDB Container'"
                 sh "echo 'Load SQL Database to MariaDB'"

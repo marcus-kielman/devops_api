@@ -1,0 +1,9 @@
+---
+- name: This is a hello-world example
+  hosts: localhost
+  vars:
+    username: marcus-kielman
+    repo_name: devops_api
+  tasks:
+    - command: ls
+      

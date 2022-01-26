@@ -1,0 +1,8 @@
+kubectl apply -f api_maria_kube.yml  ||  kubectl replace -f api_kube.yml
+A=kubectl get pods -o name | grep mariadb
+kubectl exec -it $A[3:] -- mysql -uroot -proot classicmodels < mysqlsampledatabase.sql kubectl exec -i mariadb-84b767bdd7-szg7r -c mariadb -- mysql -uroot -proot classicmodels < mysqlsampledatabase.sql #imports sql database to kubernetes "NEED TO KNOW MARIADB POD NAME"
+kubectl port-forward service/devops-api 8081:8081 --address "192.168.1.233"
+python3 kube_test.py
+./del-test-entries.sh | kubectl exec -it mariadb-84b767bdd7-7gkqz -- mysql -uroot -proot classicmodels
+
+

@@ -9,11 +9,12 @@ from model.customers import Customers, CustomerSchema
 app = Flask(__name__)
 
 def connect_db():
+    print("The Problem's here")
     try:
         conn = mariadb.connect(
             user="root",
             password="root",
-            host="172.18.0.2",
+            host="mariadb",
             port=3306,
             database="classicmodels"
 

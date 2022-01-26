@@ -7,25 +7,24 @@ pipeline {
         stage('Setting Up Testing Environment') {
             steps{
                 sh '''
-                    echo "Pulling Git Stage Branch"
+                    echo "Pulling Git Stage Branch and Installing Dependencies"
                     git pull origin stage
-                    git pull origin main
-                    git pull origin develop
-                    pip install docker
-                    pip install -- update wheel
-                    pip install -- update setuptools
-                    pip install -r requirements.txt
                     ansible-playbook -u jenkins env-playbook.yml -v
                     docker start mariadb || exit 1
                     docker run -p 8081:8081 --network api_maria --name devops_api marcuskielman/devops_api &
                     '''
+                timeout (5){
+                    waitUntil{
+                        sh 'curl http://172.18.0.3'
+                    }
+                }
             }
         }
         stage('Testing API Docker Image and Network Connection'){
             steps{
                 sh '''echo "python api_test.py and check if passed or failed"
                     sleep 10s
-                    python api_test.py
+                    python test_files/api_test.py
                     docker container stop devops_api mariadb && docker container rm devops_api
                 '''
             }

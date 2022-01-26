@@ -26,8 +26,13 @@ pipeline {
         }
         stage('Push to Production and DockerHub'){
             steps{
-                sh "echo 'Merge Stage to Main and Push Main to GitHub'"
-                sh "echo 'Merge Main to Develop and Push Develop to GitHub'"
+                sh '''
+                    echo 'Merge stage to main, main to deveop, and push main and develop to GitHub'
+                    git checkout main
+                    git merge stage
+                    git checkout develop
+                    git merge main
+                '''
                 sh "echo 'Push Docker Image API to DockerHub'"
             }
         }

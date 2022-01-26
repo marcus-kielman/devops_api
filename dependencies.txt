@@ -7,3 +7,6 @@ pip install docker
 pip install -- update wheel
 pip install -- update setuptools
 pip install -r requirements.txt
+docker build -t marcuskielman/devops_api .
+docker images ls -a
+                    

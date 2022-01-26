@@ -128,7 +128,7 @@ def connect_db():
         conn = mariadb.connect(
             user="root",
             password="root",
-            host="172.18.0.2",
+            host="mariadb",
             port=3306,
             database="classicmodels"
 

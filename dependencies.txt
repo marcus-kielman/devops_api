@@ -1,17 +1,9 @@
-sudo apt-get install libmariadb3 libmariadb-dev #need installed for pip install mariadb
-sudo apt install pipenv
-pip install virtualenv==20.7.2  #specific version works with pipenv
-
-pip install docker
-pip install -- update wheel
-pip install -- update setuptools
-pip install -r requirements.txt
 ansible-playbook -u jenkins env-playbook.yml -v
 docker build -t marcuskielman/devops_api .
 docker images ls -a
 
 docker pull marcuskielman/mariadb
-docker run -p 3306:3306 --network api_maria --name maria_db  -d marcuskielman/mariadb
+docker run -p 3306:3306 -h mariadb --network api_maria --name maria_db  -d marcuskielman/mariadb
 docker exec -i mariadb mysql -uroot -proot classicmodels < mysqlsampledatabase.sql
 
 

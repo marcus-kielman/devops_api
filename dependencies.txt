@@ -1,3 +1,5 @@
 sudo apt-get install libmariadb3 libmariadb-dev #need installed for pip install mariadb
 sudo apt install pipenv
 pip install virtualenv==20.7.2  #specific version works with pipenv
+
+ansible-playbook -u jenkins env-playbook.yml -v

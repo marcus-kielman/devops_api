@@ -1,5 +1,8 @@
 pipeline {
     agent any 
+    environment{
+        DOCKERHUB_CREDENTIALS = credentials('58a5093f-254a-4b81-97c6-b2e2c3c0b481')
+    }
     stages {
         stage('Setting Up Testing Environment') {
             steps{
@@ -30,13 +33,10 @@ pipeline {
         stage('Push to Production and DockerHub'){
             steps{
                 sh '''
-                    echo 'Merge stage to main, main to deveop, and push main and develop to GitHub'
-                    git checkout main
-                    git merge stage
-                    git checkout develop
-                    git merge main
+                    echo 'Push Docker API Image to DockerHub'
+                    echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+                    docker push marcuskielman/devops_api:latest
                 '''
-                sh "echo 'Push Docker Image API to DockerHub'"
             }
         }
     }

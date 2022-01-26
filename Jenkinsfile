@@ -7,7 +7,7 @@ pipeline {
                     echo "Pulling Git Stage Branch"
                     git pull origin stage
                     docker run -p 3306:3306 --network api_maria --name maria_db -v data:/data -e MYSQL_DATABASE=classicmodels -e MYSQL_ROOT_PASSWORD=root -d marcuskielman/mariadb
-                    docker run -p 8081:8081 --network api_maria --name devops_api marcuskielman/devops_api &
+                    docker run -p 8081:80 --network api_maria --name devops_api marcuskielman/devops_api &
                     '''
             }
         }

@@ -18,10 +18,10 @@ pipeline {
         }
         stage('Testing API Docker Image and Network Connection'){
             steps{
-                sh "echo 'python api_test.py and check if passed or failed'"
-                sh 'python api_test.py || docker container stop devops_api mariadb && docker container rm devops_api'
-                sh 'docker container stop devops_api mariadb'
-                sh 'docker container rm devops_api'
+                sh '''echo "python api_test.py and check if passed or failed"
+                    python api_test.py || docker container stop devops_api mariadb && docker container rm devops_api
+                    docker container stop devops_api mariadb && docker container rm devops_api
+                '''
             }
         }
         stage('Push to Production and DockerHub'){

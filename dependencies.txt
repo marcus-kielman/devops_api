@@ -9,4 +9,8 @@ pip install -r requirements.txt
 ansible-playbook -u jenkins env-playbook.yml -v
 docker build -t marcuskielman/devops_api .
 docker images ls -a
+
+docker pull marcuskielman/mariadb
+docker run -p 3306:3306 --network api_maria --name maria_db  -d marcuskielman/mariadb
+docker exec -i mariadb mysql -uroot -proot classicmodels < mysqlsampledatabase.sql
                     

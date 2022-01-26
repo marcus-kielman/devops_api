@@ -5,5 +5,5 @@ WORKDIR /usr/src/app
 COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 8081
+EXPOSE 8081 
 CMD ["python", "./api/mxk_api.py"]

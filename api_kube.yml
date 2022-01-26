@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: devops_api
+spec:
+  selector:
+    app: devops_api
+  ports:
+  - protocol: "TCP"
+    port: 8081
+    targetPort: 8081
+  type: LoadBalancer
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops_api
+spec:
+  selector:
+    matchLabels:
+      app: devops_api
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: devops_api
+    spec:
+      containers:
+      - name: devops_api
+        image: marcuskielman/devops_api:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8081
+
+---
+
+apiVersion: data/v1
+kind: Deployment
+metadata:
+  name: mariadb
+spec:
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+      - name: mariadb
+        image: marcuskielman/mariadb:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3306

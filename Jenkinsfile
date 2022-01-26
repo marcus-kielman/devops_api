@@ -20,12 +20,11 @@ pipeline {
         }
         stage('Testing API Docker Image and Network Connection'){
             steps{
-                timeout(5){
-                    sh '''echo "python api_test.py and check if passed or failed"
-                        python api_test.py
-                        docker container stop devops_api mariadb && docker container rm devops_api
-                    '''
-                }
+                sh '''echo "python api_test.py and check if passed or failed"
+                    sleep 5s
+                    python api_test.py
+                    docker container stop devops_api mariadb && docker container rm devops_api
+                '''
             }
         }
         stage('Push to Production and DockerHub'){

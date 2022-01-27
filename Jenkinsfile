@@ -18,12 +18,12 @@ pipeline {
                 sh '''
                     echo "python api_test.py and check if passed or failed"
                     docker build -t marcuskielman/devops_api .
-                    docker start mariadb || exit 0
                     docker run -p 8081:8081 -h devops_api --network api_maria --name devops_api marcuskielman/devops_api &
+                    docker start mariadb || exit 0
                     sleep 10s
                 '''
                 sh '''
-                    curl http://192.168.1.233:8081 && exit 0
+                    curl http://192.168.1.233:8081
                     python test_files/api_test.py
                     docker container stop devops_api mariadb && docker container rm devops_api
                 '''

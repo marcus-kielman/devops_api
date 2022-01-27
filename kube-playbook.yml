@@ -9,6 +9,8 @@
       shell: |
         kubectl apply -f ./kube_files/api_maria_kube.yml
         kubectl replace -f ./kube_files/api_kube.yml
+    - name: Import Database to MariaDB Pod
+      shell: |
         export POD_NAME=$(kubectl get pods -o name | grep mariadb)
         kubectl exec -it $POD_NAME -- mysql -uroot -proot classicmodels < mysqlsampledatabase.sql
         kubectl port-forward service/devops-api 9090:9090 --address "192.168.1.233"

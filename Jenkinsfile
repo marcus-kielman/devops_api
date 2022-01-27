@@ -15,7 +15,7 @@ pipeline {
                     '''
                 timeout (5){
                     waitUntil{
-                        sh 'curl http://172.18.0.3'
+                        sh 'curl http://0.0.0.0:8081'
                     }
                 }
             }

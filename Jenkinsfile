@@ -10,14 +10,14 @@ pipeline {
                     echo "Pulling Git Stage Branch and Installing Dependencies"
                     git pull origin stage
                     ansible-playbook -u jenkins env-playbook.yml -v
-                    docker start mariadb || exit 1
-                    docker run -p 8081:8081 --network api_maria --name devops_api marcuskielman/devops_api &
+                    docker start mariadb || exit 0
+                    docker run -p 8081:8081 -h devops_api --network api_maria --name devops_api marcuskielman/devops_api &
                     '''
-                    sh 'curl http://172.18.0.3:8081 || exit 1'
             }
         }
         stage('Testing API Docker Image and Network Connection'){
             steps{
+                sh 'curl http://172.18.0.3:8081 && exit 0'
                 sh '''echo "python api_test.py and check if passed or failed"
                     sleep 10s
                     python test_files/api_test.py

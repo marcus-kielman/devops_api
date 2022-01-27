@@ -1,0 +1,18 @@
+---
+- name: API Environment Testing Setup
+  hosts: localhost
+  vars:
+    username: marcus-kielman
+    repo_name: devops_api
+  tasks:
+    - name: Set Up Kubernetes Environment
+      shell: |
+        kubectl apply -f ./kube_files/api_maria_kube.yml
+        kubectl replace -f ./kube_files/api_kube.yml
+        export POD_NAME=$(kubectl get pods -o name | grep mariadb)
+        kubectl exec -it $POD_NAME -- mysql -uroot -proot classicmodels < mysqlsampledatabase.sql
+        kubectl port-forward service/devops-api 9090:9090 --address "192.168.1.233"
+    - name: Run Tests
+      shell: |
+        python test_files/kube_test.py
+        ./kube_files/del-test-entries.sh | kubectl  exec -it $POD_NAME -- mysql -uroot -proot classicmodels

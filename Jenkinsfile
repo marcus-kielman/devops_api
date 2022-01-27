@@ -38,5 +38,10 @@ pipeline {
                 '''
             }
         }
+        stage('Deploy to Kubernetes'){
+            steps{
+                sh 'ansible-playbook -u root kube-playbook.yml'
+            }
+        }
     }
 }

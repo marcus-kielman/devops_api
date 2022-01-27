@@ -13,11 +13,7 @@ pipeline {
                     docker start mariadb || exit 1
                     docker run -p 8081:8081 --network api_maria --name devops_api marcuskielman/devops_api &
                     '''
-                timeout (5){
-                    waitUntil{
-                        sh 'curl http://0.0.0.0:8081'
-                    }
-                }
+                    sh 'curl http://172.18.0.3:8081 || exit 1'
             }
         }
         stage('Testing API Docker Image and Network Connection'){

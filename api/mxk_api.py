@@ -34,7 +34,7 @@ def connect_db():
 def get_database_table():
     cur = connect_db() if connect_db() is not False else None
     if cur is None:
-        return "Database Inaccessible"
+        return "Database Inaccessible\n"
     else:
         cur.execute(
             "show tables;"
@@ -51,7 +51,7 @@ def get_database_table():
 def get_payments():
     cur = connect_db() if connect_db() is not False else None
     if cur is None:
-        return "Database Inaccessible"
+        return "Database Inaccessible\n"
     else:
         cur.execute(
             "SELECT * FROM payments;"
@@ -68,7 +68,7 @@ def add_payments():
     payments = PaymentSchema().load(request.get_json())
     cur = connect_db() if connect_db() is not False else None
     if cur is None:
-        return "Database Inaccessible"
+        return "Database Inaccessible\n"
     else:
         cur.execute(
             "INSERT INTO payments (customerNumber, checkNumber, paymentDate, amount) VALUES (?,?,?,?)",
@@ -79,13 +79,13 @@ def add_payments():
                 payments.amount
             )
         )
-        return "Payment Added to Database", 204
+        return "Payment Added to Database\n", 204
 
 @app.route('/get_database_table/offices')
 def get_offices():
     cur = connect_db() if connect_db() is not False else None
     if cur is None:
-        return "Database Inaccessible"
+        return "Database Inaccessible\n"
     else:
         cur.execute(
             "SELECT * FROM offices;"
@@ -101,7 +101,7 @@ def get_offices():
 def get_customers():
     cur = connect_db() if connect_db() is not False else None
     if cur is None:
-        return "Database Inaccessible"
+        return "Database Inaccessible\n"
     else:
         cur.execute(
             "SELECT * FROM customers;"
@@ -118,7 +118,7 @@ def add_customer():
     customer = CustomerSchema().load(request.get_json())
     cur = connect_db() if connect_db() is not False else None
     if cur is None:
-        return "Database Inaccessible"
+        return "Database Inaccessible\n"
     else:
         cur.execute(
             "INSERT INTO customers (customerNumber, customerName, contactLastName, contactFirstName, phone, addressLine1, addressLine2, city, state, postalCode, country, salesRepEmployeeNumber, creditLimit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -138,11 +138,11 @@ def add_customer():
                 customer.creditLimit
             )
         )
-        return "Customer Successfully Added", 204
+        return "Customer Successfully Added\n", 204
 
 @app.route('/')
 def hello():
-    return "Hello Welcome To My API"
+    return "Hello Welcome To My API\n"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8081, debug=True)

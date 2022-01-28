@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
       - name: devops-api
-        image: marcuskielman/devops-api:latest
+        image: marcuskielman/devops_api:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8081

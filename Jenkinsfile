@@ -40,8 +40,8 @@ pipeline {
         }
         stage('Deploy to Kubernetes'){
             steps{
-                withKubeConfig([credentialsId: 'minikube', serverUrl: 'https://192.168.49.2:8443']) {
-                    sh 'ansible-playbook kube-playbook.yml -v'
+                sshagent(['mxkserver1']) {
+                    sh 'ansible-playbook kube-playbook.yml -v'    
                 }
             }
         }

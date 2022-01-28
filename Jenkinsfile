@@ -42,9 +42,8 @@ pipeline {
         }
         stage('Deploy to Kubernetes'){
             steps{
-                sshagent(['mxkserver1']) {
-                    sh 'minikube start'
-                    sh 'ansible-playbook kube-playbook.yml -v'    
+                sshagent(['jenkins']){
+                    sh "ssh -o StrictHostKeyChecking=no mxkserver1@192.168.1.233 ansible-playbook /home/mxkserver1/devops_api/kube-playbook.yml -v"
                 }
             }
         }

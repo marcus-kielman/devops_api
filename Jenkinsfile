@@ -40,12 +40,9 @@ pipeline {
         }
         stage('Deploy to Kubernetes'){
             steps{
-                sh '''
-                    kubectl config set-cluster minikube --server=https://192.168.49.3:8443 --insecure-skip-tls-verify=true
-                    kubectl config set-context minikube --cluster=minikube --user=minikube
-                    kubectl config use-context minikube 
-                '''
-                sh 'ansible-playbook kube-playbook.yml -v'
+                withKubeConfig([credentialsId: 'minikube', serverUrl: 'https://192.168.49.2:8443']) {
+                    sh 'ansible-playbook kube-playbook.yml -v'
+                }
             }
         }
     }

@@ -1,10 +1,8 @@
 ---
-- name: API Environment Testing Setup
+- name: API Deployment Setup
   hosts: localhost
 
   tasks:
-    - name: Start Minikube
-      shell: minikube start
     - name: Check for existing Pods and Replace
       shell: |
         kubectl get pods -o name | grep mariadb

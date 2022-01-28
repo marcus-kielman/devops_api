@@ -34,12 +34,12 @@ pipeline {
                         docker image rm marcuskielman/devops_api marcuskielman/mariadb
                     '''
                 }
-                catch{
+                catch(error){
                     sh '''
                         docker container stop devops_api mariadb && docker container rm devops_api mariadb
                         docker image rm marcuskielman/devops_api marcuskielman/mariadb
                     '''
-                    
+
                 }
             }
         }

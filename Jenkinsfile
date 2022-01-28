@@ -40,6 +40,7 @@ pipeline {
         }
         stage('Deploy to Kubernetes'){
             steps{
+                sh 'export KUBECONFIG=~/.kube/config'
                 sh 'ansible-playbook kube-playbook.yml -v'
             }
         }

@@ -24,7 +24,9 @@ pipeline {
                 '''
                 sh '''
                     curl http://192.168.1.233:8081
-                    python test_files/api_test.py
+                    curl http://192.168.1.233:8081/get_database_table
+                    curl http://192.168.1.233:8081/get_database_table/payments
+                    curl http://192.168.1.233:8081/get_database_table/customers
                     docker container stop devops_api mariadb && docker container rm devops_api
                 '''
             }

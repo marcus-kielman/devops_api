@@ -18,17 +18,29 @@ pipeline {
                 sh '''
                     echo "python api_test.py and check if passed or failed"
                     docker build -t marcuskielman/devops_api .
+                    docker pull marcuskielman/mariadb
+                    docker run -p 3306:3306 -h mariadb --network api_maria --name mariadb  -d marcuskielman/mariadb
+                    sleep 100s
+                    docker exec -i mariadb mysql -uroot -proot classicmodels < mysqlsampledatabase.sql
                     docker run -p 8081:8081 -h devops_api --network api_maria --name devops_api marcuskielman/devops_api &
-                    docker start mariadb || exit 0
-                    sleep 10s
                 '''
-                sh '''
-                    curl http://192.168.1.233:8081
-                    curl http://192.168.1.233:8081/get_database_table
-                    curl http://192.168.1.233:8081/get_database_table/payments
-                    curl http://192.168.1.233:8081/get_database_table/customers
-                    docker container stop devops_api mariadb && docker container rm devops_api
-                '''
+                try{
+                    sh '''
+                        curl http://192.168.1.233:8081
+                        curl http://192.168.1.233:8081/get_database_table
+                        curl http://192.168.1.233:8081/get_database_table/payments
+                        curl http://192.168.1.233:8081/get_database_table/customers
+                        docker container stop devops_api mariadb && docker container rm devops_api mariadb
+                        docker image rm marcuskielman/devops_api marcuskielman/mariadb
+                    '''
+                }
+                catch{
+                    sh '''
+                        docker container stop devops_api mariadb && docker container rm devops_api mariadb
+                        docker image rm marcuskielman/devops_api marcuskielman/mariadb
+                    '''
+                    
+                }
             }
         }
         stage('Push to Production and DockerHub'){

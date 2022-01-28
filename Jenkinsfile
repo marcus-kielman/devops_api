@@ -24,22 +24,24 @@ pipeline {
                     docker exec -i mariadb mysql -uroot -proot classicmodels < mysqlsampledatabase.sql
                     docker run -p 8081:8081 -h devops_api --network api_maria --name devops_api marcuskielman/devops_api &
                 '''
-                try{
-                    sh '''
-                        curl http://192.168.1.233:8081
-                        curl http://192.168.1.233:8081/get_database_table
-                        curl http://192.168.1.233:8081/get_database_table/payments
-                        curl http://192.168.1.233:8081/get_database_table/customers
-                        docker container stop devops_api mariadb && docker container rm devops_api mariadb
-                        docker image rm marcuskielman/devops_api marcuskielman/mariadb
-                    '''
-                }
-                catch(error){
-                    sh '''
-                        docker container stop devops_api mariadb && docker container rm devops_api mariadb
-                        docker image rm marcuskielman/devops_api marcuskielman/mariadb
-                    '''
+                script{
+                    try{
+                        sh '''
+                            curl http://192.168.1.233:8081
+                            curl http://192.168.1.233:8081/get_database_table
+                            curl http://192.168.1.233:8081/get_database_table/payments
+                            curl http://192.168.1.233:8081/get_database_table/customers
+                            docker container stop devops_api mariadb && docker container rm devops_api mariadb
+                            docker image rm marcuskielman/devops_api marcuskielman/mariadb
+                        '''
+                    }
+                    catch(error){
+                        sh '''
+                            docker container stop devops_api mariadb && docker container rm devops_api mariadb
+                            docker image rm marcuskielman/devops_api marcuskielman/mariadb
+                        '''
 
+                    }
                 }
             }
         }

@@ -43,6 +43,7 @@ pipeline {
         stage('Deploy to Kubernetes'){
             steps{
                 sshagent(['mxkserver1']) {
+                    sh 'minikube start'
                     sh 'ansible-playbook kube-playbook.yml -v'    
                 }
             }

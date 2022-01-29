@@ -5,13 +5,11 @@
     username: marcus-kielman
     repo_name: devops_api
   tasks:
-    - name: Install MariaDB Dependencies
+    - name: Install flake8
       become: yes
       apt: 
         pkg:
-          - libmariadb3
-          - libmariadb-dev
-        state: present
+          - flake8
     - name: Install Python Dependencies
       shell: |
         pip install docker

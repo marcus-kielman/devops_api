@@ -44,6 +44,7 @@ class GetTestCases(unittest.TestCase):
 #      Output: Pass on 500 Code Failure/Error on Inaccessible Database
 class InPostTestCases(unittest.TestCase):
     def test_in_add_customer(self):
+        # Test POST Requests with Unknown Database Entries
         data = {
                 "customerNumber": 100,
                 "customerName": "Fitz",
@@ -65,6 +66,7 @@ class InPostTestCases(unittest.TestCase):
             )
         self.assertEqual(r.status_code, 500)
 
+        # Test POST Requests with Missing Database Entries
         data = {
                 "customerNumber": 100,
                 "customerName": "Fitz",
@@ -86,6 +88,7 @@ class InPostTestCases(unittest.TestCase):
         self.assertEqual(r.status_code, 500)
 
     def test_in_add_payment(self):
+        # Tests POST Requests with Unknown Database Entries
         data = {
                 "customerNumber": 100,
                 "checkNumber": "HR141523",
@@ -98,6 +101,7 @@ class InPostTestCases(unittest.TestCase):
             )
         self.assertEqual(r.status_code, 500)
 
+        # Test POST Request With Missing Entries
         data = {
                 "customerNumber": 103,
                 "checkNumber": "HR141523",

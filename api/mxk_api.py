@@ -8,6 +8,7 @@ from model.customers import Customers, CustomerSchema
 
 app = Flask(__name__)
 
+
 def connect_db():
     print("The Problem's here")
     try:
@@ -17,7 +18,6 @@ def connect_db():
             host="mariadb",
             port=3306,
             database="classicmodels"
-
         )
         conn.autocommit = True
     except mariadb.Error as e:
@@ -25,10 +25,12 @@ def connect_db():
         return False
     else:
         print("successfully connected")
-    
-    #select column_name from information_schema.columns where table_name='customers'; (use to get column names)
+
+    '''select column_name from information_schema.columns where
+       table_name='customers'; (use to get column names)'''
     cur = conn.cursor()
     return cur
+
 
 @app.route('/get_database_table')
 def get_database_table():
@@ -47,6 +49,7 @@ def get_database_table():
         db = schema.dump(table)
         return jsonify(db)
 
+
 @app.route('/get_database_table/payments')
 def get_payments():
     cur = connect_db() if connect_db() is not False else None
@@ -63,6 +66,7 @@ def get_payments():
         payments = schema.dump(table)
         return jsonify(payments)
 
+
 @app.route('/get_database_table/payments', methods=['POST'])
 def add_payments():
     payments = PaymentSchema().load(request.get_json())
@@ -71,8 +75,10 @@ def add_payments():
         return "Database Inaccessible\n"
     else:
         cur.execute(
-            "INSERT INTO payments (customerNumber, checkNumber, paymentDate, amount) VALUES (?,?,?,?)",
-            (   
+            "INSERT INTO payments (\
+            customerNumber, checkNumber, paymentDate, amount)\
+            VALUES (?,?,?,?)",
+            (
                 payments.customerNumber,
                 payments.checkNumber,
                 payments.paymentDate,
@@ -80,6 +86,7 @@ def add_payments():
             )
         )
         return "Payment Added to Database\n", 204
+
 
 @app.route('/get_database_table/offices')
 def get_offices():
@@ -92,10 +99,14 @@ def get_offices():
         )
         table = []
         for i in cur:
-            table.append(Offices(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8]))
+            table.append(Offices(
+                                i[0], i[1], i[2], i[3], i[4],
+                                i[5], i[6], i[7], i[8]
+                        ))
         schema = OfficeSchema(many=True)
         offices = schema.dump(table)
         return jsonify(offices)
+
 
 @app.route('/get_database_table/customers')
 def get_customers():
@@ -108,11 +119,15 @@ def get_customers():
         )
         table = []
         for i in cur:
-            table.append(Customers(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9], i[10], i[11], i[12]))
+            table.append(Customers(
+                                i[0], i[1], i[2], i[3], i[4], i[5], i[6],
+                                i[7], i[8], i[9], i[10], i[11], i[12]
+                        ))
         schema = CustomerSchema(many=True)
         customers = schema.dump(table)
         return jsonify(customers)
-    
+
+
 @app.route('/get_database_table/customers', methods=['POST'])
 def add_customer():
     customer = CustomerSchema().load(request.get_json())
@@ -121,7 +136,13 @@ def add_customer():
         return "Database Inaccessible\n"
     else:
         cur.execute(
-            "INSERT INTO customers (customerNumber, customerName, contactLastName, contactFirstName, phone, addressLine1, addressLine2, city, state, postalCode, country, salesRepEmployeeNumber, creditLimit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO customers (\
+            customerNumber, customerName, contactLastName,\
+            contactFirstName, phone, addressLine1, addressLine2,\
+            city, state, postalCode, country, salesRepEmployeeNumber,\
+            creditLimit)\
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+
             (
                 customer.customerNumber,
                 customer.customerName,
@@ -140,9 +161,11 @@ def add_customer():
         )
         return "Customer Successfully Added\n", 204
 
+
 @app.route('/')
 def hello():
     return "Hello Welcome To My API\n"
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8081, debug=True)

@@ -2,7 +2,12 @@ from marshmallow import Schema, fields, post_load
 
 
 class Customers():
-    def __init__(self, customerNumber, customerName, contactLastName, contactFirstName, phone, addressLine1, addressLine2, city, state, postalCode, country, salesRepEmployeeNumber, creditLimit):
+    def __init__(
+                self, customerNumber, customerName, contactLastName,
+                contactFirstName, phone, addressLine1, addressLine2,
+                city, state, postalCode, country, salesRepEmployeeNumber,
+                creditLimit
+    ):
         self.customerNumber = customerNumber
         self.customerName = customerName
         self.contactLastName = contactLastName
@@ -19,6 +24,7 @@ class Customers():
 
     def __repr__(self):
         return '<Customers(name={self.customerNumber!r})>'.format(self=self)
+
 
 class CustomerSchema(Schema):
     customerNumber = fields.Int()

@@ -33,7 +33,7 @@ pipeline {
                             curl http://192.168.1.233:8081/get_database_table/customers
                             python3 test_files/api_test.py
                             docker container stop devops_api mariadb && docker container rm devops_api mariadb
-                            docker image rm marcuskielman/devops_api marcuskielman/mariadb
+                            docker image rm marcuskielman/mariadb
                         '''
                     }
                     catch(error){
@@ -52,6 +52,7 @@ pipeline {
                     echo 'Push Docker API Image to DockerHub'
                     echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
                     docker push marcuskielman/devops_api:latest
+                    docker image rm marcuskielman/devops_api
                 '''
             }
         }

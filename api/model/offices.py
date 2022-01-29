@@ -1,7 +1,11 @@
-from marshmallow import Schema, fields, post_load
+from marshmallow import Schema, fields
+
 
 class Offices():
-    def __init__(self, officeCode, city, phone, addressLine1, addressLine2, state, country, postalCode, territory):
+    def __init__(
+                self, officeCode, city, phone, addressLine1, addressLine2,
+                state, country, postalCode, territory
+    ):
         self.officeCode = officeCode
         self.city = city
         self.phone = phone
@@ -11,8 +15,10 @@ class Offices():
         self.country = country
         self.postalCode = postalCode
         self.territory = territory
+
     def __repr__(self):
         return '<Offices(name={self.officeCode!r})>'.format(self=self)
+
 
 class OfficeSchema(Schema):
     officeCode = fields.Int()

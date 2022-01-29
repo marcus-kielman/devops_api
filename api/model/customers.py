@@ -1,5 +1,6 @@
 from marshmallow import Schema, fields, post_load
 
+
 class Customers():
     def __init__(self, customerNumber, customerName, contactLastName, contactFirstName, phone, addressLine1, addressLine2, city, state, postalCode, country, salesRepEmployeeNumber, creditLimit):
         self.customerNumber = customerNumber

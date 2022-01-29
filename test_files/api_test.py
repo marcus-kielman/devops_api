@@ -128,6 +128,6 @@ class PostTestCases(unittest.TestCase):
             )
         print(r.text)
         self.assertEqual(r.status_code, 204)
-  
+
 
 unittest.main()

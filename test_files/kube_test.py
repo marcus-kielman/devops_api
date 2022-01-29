@@ -1,7 +1,19 @@
+# Module: kube_test
+# File Type: Test Module
+# Author: Marcus X. Kielman
+# Description: Unit Testing for Flask API and Database in Kubernetes
 import unittest
 import requests
 
 
+# ========================================================================
+# Description: Tests GET Requests to Database:
+#                http://localhost:9090/get_database_table
+#                http://localhost:9090/get_database_table/payments
+#                http://localhost:9090/get_database_table/customers
+#                http://localhost:9090/get_database_table/offices
+#       Input: Null
+#      Output: Pass on 200 Code and Failure/Error on Inaccessible Database
 class GetTestCases(unittest.TestCase):
     def test_get_database_tables(self):
         r = requests.get(
@@ -32,6 +44,12 @@ class GetTestCases(unittest.TestCase):
         self.assertEqual(r.status_code, 200)
 
 
+# ========================================================================
+# Description: Tests Incorrect POST Requests to Database:
+#                http://localhost:9090/get_database_table/payments
+#                http://localhost:9090/get_database_table/customers
+#       Input: Null
+#      Output: Pass on 500 Code Failure/Error on Inaccessible Database
 class InPostTestCases(unittest.TestCase):
     def test_in_add_customer(self):
         data = {
@@ -100,6 +118,12 @@ class InPostTestCases(unittest.TestCase):
         self.assertEqual(r.status_code, 500)
 
 
+# ========================================================================
+# Description: Tests Incorrect POST Requests to Database:
+#                http://localhost:9090/get_database_table/payments
+#                http://localhost:9090/get_database_table/customers
+#       Input: Null
+#      Output: Pass on 204 Code Failure/Error on Inaccessible Database
 class PostTestCases(unittest.TestCase):
     def test_add_customer(self):
         data = {

@@ -1,6 +1,15 @@
+# Module: customers
+# File Type: Database Table Model
+# Author: Marcus X. Kielman
+# Description: Database model for customers table
 from marshmallow import Schema, fields, post_load
 
 
+# ========================================================================
+# Description: Initialize variables/entries in customers table and
+#                specifies object String representation in Python
+#       Input: Null
+#      Output: Null
 class Customers():
     def __init__(
                 self, customerNumber, customerName, contactLastName,
@@ -26,6 +35,10 @@ class Customers():
         return '<Customers(name={self.customerNumber!r})>'.format(self=self)
 
 
+# ========================================================================
+# Description: Specifies variable field types for sending data to database
+#       Input: Null
+#      Output: Null
 class CustomerSchema(Schema):
     customerNumber = fields.Int()
     customerName = fields.Str()
@@ -41,6 +54,7 @@ class CustomerSchema(Schema):
     salesRepEmployeeNumber = fields.Int()
     creditLimit = fields.Number()
 
+    # Sends POST Request Data to Database
     @post_load
     def make_customer(self, data, **kwargs):
         return Customers(**data)

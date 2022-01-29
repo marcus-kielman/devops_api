@@ -1,6 +1,15 @@
+# Module: offices
+# File Type: Database Table Model
+# Author: Marcus X. Kielman
+# Description: Database model for offices table
 from marshmallow import Schema, fields
 
 
+# ========================================================================
+# Description: Initialize variables/entries in customers table and
+#                specifies object String representation in Python
+#       Input: Null
+#      Output: Null
 class Offices():
     def __init__(
                 self, officeCode, city, phone, addressLine1, addressLine2,
@@ -20,6 +29,10 @@ class Offices():
         return '<Offices(name={self.officeCode!r})>'.format(self=self)
 
 
+# ========================================================================
+# Description: Specifies variable field types for sending data to database
+#       Input: Null
+#      Output: Null
 class OfficeSchema(Schema):
     officeCode = fields.Int()
     city = fields.Str()

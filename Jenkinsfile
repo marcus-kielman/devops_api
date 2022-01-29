@@ -20,7 +20,7 @@ pipeline {
                     docker build -t marcuskielman/devops_api .
                     docker pull marcuskielman/mariadb
                     docker run -p 3306:3306 -h mariadb --network api_maria --name mariadb  -d marcuskielman/mariadb
-                    sleep 100s
+                    sleep 160s
                     docker exec -i mariadb mysql -uroot -proot classicmodels < mysqlsampledatabase.sql
                     docker run -p 8081:8081 -h devops_api --network api_maria --name devops_api marcuskielman/devops_api &
                 '''
@@ -31,6 +31,7 @@ pipeline {
                             curl http://192.168.1.233:8081/get_database_table
                             curl http://192.168.1.233:8081/get_database_table/payments
                             curl http://192.168.1.233:8081/get_database_table/customers
+                            python3 test_files/api_test.py
                             docker container stop devops_api mariadb && docker container rm devops_api mariadb
                             docker image rm marcuskielman/devops_api marcuskielman/mariadb
                         '''

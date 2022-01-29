@@ -36,7 +36,7 @@ class InPostTestCases(unittest.TestCase):
                 "addressLine2": "1444 University Park",
                 "city": "State College",
                 "state": "PA",
-                "postalCode": 16802,
+                "postalCode": "16802",
                 "country": "US",
                 "salesRepEmployeeNumber": 1000,
                 "creditLimit": "26000.44"
@@ -54,7 +54,7 @@ class InPostTestCases(unittest.TestCase):
                 "addressLine2": "1444 University Park",
                 "city": "State College",
                 "state": "PA",
-                "postalCode": 16802,
+                "postalCode": "16802",
                 "country": "US",
                 "creditLimit": "26000.44"
         }
@@ -82,66 +82,35 @@ class InPostTestCases(unittest.TestCase):
 
 class PostTestCases(unittest.TestCase):
     def test_add_customer(self):
-        cur = connect_db() if connect_db() is not False else None
-        if cur is not None:
-            header = {"Content-Type: application/json",}
-            data = {
-                    "customerNumber": 103,
-                    "checkNumber": "HR141523",
-                    "paymentDate": "2020-01-23",
-                    "amount": 1234.56
-            }
-            r = requests.post('http://192.168.1.233:8081/get_database_table/payments', json=data)
-            self.assertEqual(r.status_code, 204)
-            cur.execute(
-                "DELETE FROM payments WHERE checkNumber='HR141523';"
-            )
+        header = {"Content-Type: application/json",}
+        data = {
+                "customerNumber": 103,
+                "checkNumber": "HR141523",
+                "paymentDate": "2020-01-23",
+                "amount": 1234.56
+        }
+        r = requests.post('http://192.168.1.233:8081/get_database_table/payments', json=data)
+        self.assertEqual(r.status_code, 204)
         
     def test_add_payment(self):
-        cur = connect_db() if connect_db() is not False else None
-        if cur is not None:
-            header = {"Content-Type: application/json",}
-            data = {
-                    "customerNumber": 100,
-                    "customerName": "Fitz",
-                    "contactLastName": "Mulligan",
-                    "contactFirstName": "Patrick",
-                    "phone": "4125264562",
-                    "addressLine1": "520 Willford Lane",
-                    "addressLine2": "1444 University Park",
-                    "city": "State College",
-                    "state": "PA",
-                    "postalCode": "16802",
-                    "country": "US",
-                    "salesRepEmployeeNumber": 1002,
-                    "creditLimit": "26000.44"
-            }
-            r = requests.post('http://192.168.1.233:8081/get_database_table/customers', json=data)
-            print(r.text)
-            self.assertEqual(r.status_code, 204)
-            cur.execute(
-                "DELETE FROM customers WHERE customerNumber=100;"
-            )
-
-def connect_db():
-    try:
-        conn = mariadb.connect(
-            user="root",
-            password="root",
-            host="mariadb",
-            port=3306,
-            database="classicmodels"
-
-        )
-        conn.autocommit = True
-    except mariadb.Error as e:
-        print(f"Error connecting to MariaDB Platform: {e}")
-        return False
-    else:
-        print("successfully connected")
-    
-    #select column_name from information_schema.columns where table_name='customers'; (use to get column names)
-    cur = conn.cursor()
-    return cur
+        header = {"Content-Type: application/json",}
+        data = {
+                "customerNumber": 100,
+                "customerName": "Fitz",
+                "contactLastName": "Mulligan",
+                "contactFirstName": "Patrick",
+                "phone": "4125264562",
+                "addressLine1": "520 Willford Lane",
+                "addressLine2": "1444 University Park",
+                "city": "State College",
+                "state": "PA",
+                "postalCode": "16802",
+                "country": "US",
+                "salesRepEmployeeNumber": 1002,
+                "creditLimit": "26000.44"
+        }
+        r = requests.post('http://192.168.1.233:8081/get_database_table/customers', json=data)
+        print(r.text)
+        self.assertEqual(r.status_code, 204)
 
 unittest.main()

@@ -8,7 +8,7 @@ pipeline {
             steps{
                 sh '''
                     echo "Pulling Git Stage Branch and Installing Dependencies"
-                    git pull origin stage
+                    git pull origin main
                     ansible-playbook -u jenkins env-playbook.yml -v
                     '''
             }

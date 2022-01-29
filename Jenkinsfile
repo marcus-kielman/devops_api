@@ -20,7 +20,7 @@ pipeline {
                     flake8 api/model/offices.py
                     flake8 api/model/payments.py
                     flake8 api/model/tables.py
-                    flake8 api/model/mxk_api.py
+                    flake8 api/mxk_api.py
                     flake8 test_files/api_test.py
                     flake8 test_files/kube_test.py
                 '''

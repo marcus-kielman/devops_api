@@ -84,10 +84,10 @@ The following urls are used to send GET and POST requests to the API Docker Cont
 │   ├── kube_files
 |   |   ├── api_kube.yml
 |   |   ├── api_maria_kube.yml
-|   |   ├── kube-run.sh
 │   ├── test_files
 |   |   ├── api_test.py
 |   |   ├── kube_test.py
+|   |   ├── kube-run.sh
 |   |   ├── del-docker-entries.sh
 |   |   └── del-test-entries.sh
 |   |
@@ -112,4 +112,4 @@ The following shell scripts ```del-docker-entries.sh``` and ```del-test-entries.
 There are two playbooks used for creating the testing environment, and deploying to kubernetes. When running CI/CD testing in Jenkins, the ```env-playbook.yml``` playbook is used to install necessary packages and libraries for testing docker container functionality and Python linting testing. On success, the ```kube-playbook.yml``` playbook is used to determine if pods are already created or not, and deploy accordingly. 
 
 ### Deployment
-Additional running for deployment can be accomplished using the ```kube_files/kube-run.sh``` to enable port forwarding and run unit testing on kubernetes pods. Two types of .yml files are provided for deploying the API and database (```api_maria_kube.yml```) and deploying only the API (```api_kube.yml```). In cases where the API and database haven't been deployed, deployment occurs using the command ```kubectl apply -f kube_files/api_maria_kube.yml```. In cases where the database is running and persistence should remain, updating the API occurs using the command ```kubectl replace -f kube_files/api_kube.yml```
+Additional running for deployment can be accomplished using the ```test_files/kube-run.sh``` to enable port forwarding and run unit testing on kubernetes pods. Two types of .yml files are provided for deploying the API and database (```api_maria_kube.yml```) and deploying only the API (```api_kube.yml```). In cases where the API and database haven't been deployed, deployment occurs using the command ```kubectl apply -f kube_files/api_maria_kube.yml```. In cases where the database is running and persistence should remain, updating the API occurs using the command ```kubectl replace -f kube_files/api_kube.yml```

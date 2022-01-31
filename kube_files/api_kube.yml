@@ -21,7 +21,7 @@ spec:
   selector:
     matchLabels:
       app: devops-api
-  replicas: 3
+  replicas: 5
   template:
     metadata:
       labels:

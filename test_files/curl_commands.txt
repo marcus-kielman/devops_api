@@ -1,0 +1,19 @@
+curl -X POST -H "Content Type: application/json" -d '{
+    "customerNumber": 103,
+    "checkNumber": "HR141523",
+    "amount": 1234.56
+}' http://172.18.0.3:8081/get_database_table/payments
+
+curl -X POST -H "Content Type: application/json" -d '{
+    "customerNumber": 100,
+    "checkNumber": "HR141523",
+    "paymentDate": "2020-01-23",
+    "amount": 1234.56
+}' http://172.18.0.3:8081/get_database_table/payments
+
+curl -X POST -H "Content Type: application/json" -d '{
+    "customerNumber": 103,
+    "checkNumber": "HR141523",
+    "paymentDate": "2020-01-23",
+    "amount": "1234.56"
+}' http://172.18.0.3:8081/get_database_table/payments

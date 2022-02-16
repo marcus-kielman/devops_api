@@ -40,10 +40,10 @@ pipeline {
                 script{
                     try{
                         sh '''
-                            curl http://192.168.1.233:8081
-                            curl http://192.168.1.233:8081/get_database_table
-                            curl http://192.168.1.233:8081/get_database_table/payments
-                            curl http://192.168.1.233:8081/get_database_table/customers
+                            curl http://192.168.1.245:8081
+                            curl http://192.168.1.245:8081/get_database_table
+                            curl http://192.168.1.245:8081/get_database_table/payments
+                            curl http://192.168.1.245:8081/get_database_table/customers
                             python3 test_files/api_test.py
                             docker container stop devops_api mariadb && docker container rm devops_api mariadb
                             docker image rm marcuskielman/mariadb

@@ -17,28 +17,28 @@ import requests
 class GetTestCases(unittest.TestCase):
     def test_get_database_tables(self):
         r = requests.get(
-                'http://192.168.1.233:9090/get_database_table'
+                'http://192.168.1.245:9090/get_database_table'
             )
         self.assertNotEqual(r.json(), "Database Inaccessible")
         self.assertEqual(r.status_code, 200)
 
     def test_get_payments(self):
         r = requests.get(
-                'http://192.168.1.233:9090/get_database_table/payments'
+                'http://192.168.1.245:9090/get_database_table/payments'
             )
         self.assertNotEqual(r.json(), "Database Inaccessible")
         self.assertEqual(r.status_code, 200)
 
     def test_get_customers(self):
         r = requests.get(
-                'http://192.168.1.233:9090/get_database_table/customers'
+                'http://192.168.1.245:9090/get_database_table/customers'
             )
         self.assertNotEqual(r.json(), "Database Inaccessible")
         self.assertEqual(r.status_code, 200)
 
     def test_get_offices(self):
         r = requests.get(
-                'http://192.168.1.233:9090/get_database_table/offices'
+                'http://192.168.1.245:9090/get_database_table/offices'
             )
         self.assertNotEqual(r.json(), "Database Inaccessible")
         self.assertEqual(r.status_code, 200)
@@ -69,7 +69,7 @@ class InPostTestCases(unittest.TestCase):
                 "creditLimit": "26000.44"
         }
         r = requests.post(
-                'http://192.168.1.233:9090/get_database_table/customers',
+                'http://192.168.1.245:9090/get_database_table/customers',
                 json=data
             )
         self.assertEqual(r.status_code, 500)
@@ -90,7 +90,7 @@ class InPostTestCases(unittest.TestCase):
                 "creditLimit": "26000.44"
         }
         r = requests.post(
-                'http://192.168.1.233:9090/get_database_table/customers',
+                'http://192.168.1.245:9090/get_database_table/customers',
                 json=data
             )
         self.assertEqual(r.status_code, 500)
@@ -104,7 +104,7 @@ class InPostTestCases(unittest.TestCase):
                 "amount": 1234.56
         }
         r = requests.post(
-                'http://192.168.1.233:9090/get_database_table/payments',
+                'http://192.168.1.245:9090/get_database_table/payments',
                 json=data
             )
         self.assertEqual(r.status_code, 500)
@@ -116,7 +116,7 @@ class InPostTestCases(unittest.TestCase):
                 "amount": 1234.56
         }
         r = requests.post(
-                'http://192.168.1.233:9090/get_database_table/payments',
+                'http://192.168.1.245:9090/get_database_table/payments',
                 json=data
             )
         self.assertEqual(r.status_code, 500)
@@ -137,7 +137,7 @@ class PostTestCases(unittest.TestCase):
                 "amount": 1234.56
         }
         r = requests.post(
-                'http://192.168.1.233:9090/get_database_table/payments',
+                'http://192.168.1.245:9090/get_database_table/payments',
                 json=data
             )
         self.assertEqual(r.status_code, 204)
@@ -159,7 +159,7 @@ class PostTestCases(unittest.TestCase):
                 "creditLimit": "26000.44"
         }
         r = requests.post(
-                'http://192.168.1.233:9090/get_database_table/customers',
+                'http://192.168.1.245:9090/get_database_table/customers',
                 json=data
             )
         print(r.text)

@@ -10,6 +10,11 @@
       apt: 
         pkg:
           - flake8
+    - name: Install pip
+      become: yes
+      apt:
+        pkg:
+          - python3-pip
     - name: Install Python Dependencies
       shell: |
         pip install docker

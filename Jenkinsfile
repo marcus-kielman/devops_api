@@ -32,6 +32,7 @@ pipeline {
                     echo "python api_test.py and check if passed or failed"
                     docker build -t marcuskielman/devops_api .
                     docker pull marcuskielman/mariadb
+                    docker network create api_maria
                     docker run -p 8081:8081 -h devops_api --network api_maria --name devops_api marcuskielman/devops_api &
                     docker run -p 3306:3306 -h mariadb --network api_maria --name mariadb  -d marcuskielman/mariadb
                     sleep 160s
@@ -72,8 +73,8 @@ pipeline {
         stage('Deploy to Kubernetes'){
             steps{
                 sshagent(['jenkins']){
-                    sh "ssh -o StrictHostKeyChecking=no mxkserver1@192.168.1.233 cd /home/mxkserver1/devops_api && git pull origin main"
-                    sh "ssh -o StrictHostKeyChecking=no mxkserver1@192.168.1.233 ansible-playbook /home/mxkserver1/devops_api/kube-playbook.yml -v"
+                    sh "ssh -o StrictHostKeyChecking=no userver1@192.168.1.245 cd /home/userver1/devops_api && git pull origin main"
+                    sh "ssh -o StrictHostKeyChecking=no userver1@192.168.1.245 ansible-playbook /home/userver1/devops_api/kube-playbook.yml -v"
                 }
             }
         }

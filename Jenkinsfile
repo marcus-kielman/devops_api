@@ -72,7 +72,7 @@ pipeline {
         }
         stage('Deploy to Kubernetes'){
             steps{
-                sshagent(['userver1']){
+                sshagent(credentials:['605e4d7e-ed8b-4069-932d-0fac12d41de1']){
                     sh "ssh -o StrictHostKeyChecking=no userver1@192.168.1.245 cd /home/userver1/devops_api && git pull origin main"
                     sh "ssh -o StrictHostKeyChecking=no userver1@192.168.1.245 ansible-playbook /home/userver1/devops_api/kube-playbook.yml -v"
                 }
